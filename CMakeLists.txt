@@ -53,7 +53,7 @@ set(RAJA_CXX_STANDARD_FLAG "default" CACHE STRING "Specific c++ standard flag to
 option(ENABLE_TBB "Build TBB support" Off)
 option(ENABLE_TARGET_OPENMP "Build OpenMP on target device support" Off)
 option(ENABLE_CLANG_CUDA "Use Clang's native CUDA support" Off)
-option(ENABLE_EXTERNAL_CUB "Use an external cub for scans" Off)
+option(ENABLE_EXTERNAL_CUB "Use an external cub for scans" On)
 option(ENABLE_EXTERNAL_ROCPRIM "Use an external rocPRIM for scans" Off)
 option(ENABLE_TESTS "Build tests" On)
 option(ENABLE_REPRODUCERS "Build issue reproducers" Off)
