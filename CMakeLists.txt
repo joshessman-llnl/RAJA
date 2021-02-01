@@ -183,48 +183,30 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel" AND CMAKE_CXX_COMPILER_VERSION V
 endif()
 
 if (ENABLE_CUDA)
-  set (raja_depends
+  set(raja_depends
     ${raja_depends}
     cuda)
 endif ()
 
 if (ENABLE_CUDA)
   if(ENABLE_EXTERNAL_CUB)
-    find_package(CUB)
-    if (CUB_FOUND)
-      blt_register_library(
-        NAME cub
-        INCLUDES $<BUILD_INTERFACE:${CUB_INCLUDE_DIRS}>)
-      set(raja_depends
-        ${raja_depends}
-        cub)
-    else()
-      message(WARNING "External CUB not found.")
-      set(ENABLE_EXTERNAL_CUB Off)
-    endif()
+    set(raja_depends
+      ${raja_depends}
+      cub)
   endif ()
 endif ()
 
 if (ENABLE_HIP)
-  set (raja_depends
+  set(raja_depends
     ${raja_depends}
     hip)
 endif ()
 
 if (ENABLE_HIP)
   if(ENABLE_EXTERNAL_ROCPRIM)
-    find_package(ROCPRIM)
-    if (ROCPRIM_FOUND)
-      blt_register_library(
-        NAME rocPRIM
-        INCLUDES ${ROCPRIM_INCLUDE_DIRS})
-      set(raja_depends
-          ${raja_depends}
-          rocPRIM)
-    else()
-      message(WARNING "External rocPRIM not found.")
-      set(ENABLE_EXTERNAL_ROCPRIM Off)
-     endif()
+    set(raja_depends
+      ${raja_depends}
+      rocPRIM)
   endif ()
 endif ()
 
@@ -271,17 +253,31 @@ target_include_directories(RAJA
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_include_directories(RAJA SYSTEM
-  PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tpl/cub>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tpl/rocPRIM/rocprim/include>)
+if (ENABLE_CUDA)
+  if(NOT ENABLE_EXTERNAL_CUB)
+    target_include_directories(RAJA SYSTEM
+      PUBLIC
+      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tpl/cub>)
+  endif()
+endif()
+if (ENABLE_HIP)
+  if(NOT ENABLE_EXTERNAL_ROCPRIM)
+    target_include_directories(RAJA SYSTEM
+      PUBLIC
+      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tpl/rocPRIM/rocprim/include>)
+  endif()
+endif()
 
 install(DIRECTORY include/ DESTINATION include FILES_MATCHING PATTERN *.hpp)
-if(NOT ENABLE_EXTERNAL_CUB)
-  install(DIRECTORY tpl/cub/ DESTINATION include FILES_MATCHING PATTERN *.cuh)
+if (ENABLE_CUDA)
+  if(NOT ENABLE_EXTERNAL_CUB)
+    install(DIRECTORY tpl/cub/ DESTINATION include FILES_MATCHING PATTERN *.cuh)
+  endif()
 endif()
-if(NOT ENABLE_EXTERNAL_ROCPRIM)
-  install(DIRECTORY tpl/rocPRIM/rocprim/include/ DESTINATION include FILES_MATCHING PATTERN *.hpp)
+if (ENABLE_HIP)
+  if(NOT ENABLE_EXTERNAL_ROCPRIM)
+    install(DIRECTORY tpl/rocPRIM/rocprim/include/ DESTINATION include FILES_MATCHING PATTERN *.hpp)
+  endif()
 endif()
 
 install(FILES
