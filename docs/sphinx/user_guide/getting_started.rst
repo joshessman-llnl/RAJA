@@ -213,6 +213,11 @@ chain (which can also be used to compile code for NVIDIA GPUs).
 .. note:: RAJA requires version 3.5 or newer of the rocm software stack to 
           use the RAJA HIP back-end.
 
+.. note:: RAJA does not support using HIP to target NVIDIA GPUs at this time.
+
+.. note:: When using HIP and targeting NVIDIA GPUs RAJA uses CUB instead of
+          ROCPRIM.
+
 OpenMP
 ^^^^^^^
 
