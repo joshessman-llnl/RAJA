@@ -190,10 +190,13 @@ appropriate nvcc options in the ``CMAKE_CUDA_FLAGS_*`` variables.
             CMake will report this and stop processing.
 
 Also, RAJA relies on the CUB CUDA utilities library for some CUDA functionality.
-CUB is included with RAJA as a Git submodule and this version will be used if
-you do not specify an alternative. To use an externally-supplied CUB library,
-provide the following options to CMake: 
-``-DENABLE_EXTERNAL_CUB=On -DCUB_DIR=<pat/to/cub>``.
+The CUB included in the CUDA toolkit is used by default. This ensures
+compatibility with the THRUST CUDA library included in the CUDA toolkit. To
+use a different external CUB install provide the following option to CMake:
+``-DCUB_DIR=<pat/to/cub>``. CUB is included with RAJA as a Git submodule but
+will only be used if you configure RAJA to not use an externally-supplied CUB
+library. To use the CUB submodule provide the following option to CMake:
+``-DENABLE_EXTERNAL_CUB=Off``.
 
 .. note:: It is important to note that the version of Googletest that
           is used in RAJA version v0.11.0 or newer requires CUDA version 
