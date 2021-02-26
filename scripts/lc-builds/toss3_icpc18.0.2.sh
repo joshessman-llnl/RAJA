@@ -17,6 +17,7 @@ module load cmake/3.14.5
 cmake \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_CXX_COMPILER=/usr/tce/packages/intel/intel-18.0.2/bin/icpc \
+  -DCMAKE_C_COMPILER=/usr/tce/packages/intel/intel-18.0.2/bin/icc \
   -C ../host-configs/lc-builds/toss3/icpc_X_gcc7headers.cmake \
   -DENABLE_OPENMP=On \
   -DCMAKE_INSTALL_PREFIX=../install_${BUILD_SUFFIX} \

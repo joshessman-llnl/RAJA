@@ -7,7 +7,7 @@
 # SPDX-License-Identifier: (BSD-3-Clause)
 ###############################################################################
 
-BUILD_SUFFIX=lc_toss3-icpc-17.0.2
+BUILD_SUFFIX=lc_toss3-pgi-21.1
 
 rm -rf build_${BUILD_SUFFIX} 2>/dev/null
 mkdir build_${BUILD_SUFFIX} && cd build_${BUILD_SUFFIX}
@@ -16,9 +16,9 @@ module load cmake/3.14.5
 
 cmake \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_CXX_COMPILER=/usr/tce/packages/intel/intel-17.0.2/bin/icpc \
-  -DCMAKE_C_COMPILER=/usr/tce/packages/intel/intel-17.0.2/bin/icc \
-  -C ../host-configs/lc-builds/toss3/icpc_X_gcc7headers.cmake \
+  -DCMAKE_CXX_COMPILER=/usr/tce/packages/pgi/pgi-21.1/bin/pgc++ \
+  -DCMAKE_C_COMPILER=/usr/tce/packages/pgi/pgi-21.1/bin/pgcc \
+  -C ../host-configs/lc-builds/toss3/pgi_X.cmake \
   -DENABLE_OPENMP=On \
   -DCMAKE_INSTALL_PREFIX=../install_${BUILD_SUFFIX} \
   "$@" \
