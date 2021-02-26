@@ -10,6 +10,37 @@
 Version vxx.yy.zz -- Release date 20yy-mm-dd
 ============================================
 
+Version v0.14.0 -- Release date 2021-03-dd
+============================================
+
+This release contains new features, bug fixes, and build improvements. Please
+see the RAJA user guide for more information about items in this release.
+
+Notable changes include:
+
+  * New features / API changes:
+      * Host implementation of HIP atomics added.
+      * Add ability to specify atomic to use on the host in CUDA and HIP
+        atomic policies (i.e., added host atomic templlate parameter), This
+        is useful for host-device deorated lambda expressions that may be
+        used for either host or device execution. It also fixes compilation 
+        issues with HIP atomic compilation in host-device contexts.
+      * Basic docygen source code documentation is now available on our
+        Read The Docs Sphinx documentation.
+      * Unified memory implementation for storing indices in TypedListSegment, 
+        which was marked deprecated in v0.12.0 release has been removed. Now,
+        TypedListSegment constructor requires a camp resource object to be 
+        passed which indicates the memory space where the indices will live.
+
+  * Build changes/improvements:
+      * Update BLT to newer develop branch commit (SHA-1: b7e2bdc)
+
+  * Bug fixes/improvements:
+      * IndexSet utility methods for collecting indices into a separate 
+        container now work with any index type. 
+      * Numerous improvements and fixes (formatting, typos, etc.) in User Guide.
+
+
 Version v0.13.0 -- Release date 2020-10-30
 ============================================
 
