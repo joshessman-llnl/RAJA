@@ -73,8 +73,12 @@ submodule or as an installed library.
 User Documentation
 -------------------
 
-The [**RAJA User Guide and Tutorial**](http://raja.readthedocs.io/en/main/) 
-is the best place to start learning about RAJA and how to use it.
+The **RAJA User Guide and Tutorial** is the best place to start learning 
+about RAJA and how to use it. 
+
+Latest documentation on the develop branch: http://raja.readthedocs.io
+
+To access documentation for any version: http://readthedocs.org/projects/raja/
 
 To cite RAJA, please use the following references:
 
