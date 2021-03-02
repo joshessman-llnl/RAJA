@@ -53,7 +53,7 @@ set(RAJA_CXX_STANDARD_FLAG "default" CACHE STRING "Specific c++ standard flag to
 option(ENABLE_TBB "Build TBB support" Off)
 option(ENABLE_TARGET_OPENMP "Build OpenMP on target device support" Off)
 option(ENABLE_CLANG_CUDA "Use Clang's native CUDA support" Off)
-option(ENABLE_EXTERNAL_CUB "Use an external cub for scans" On)
+option(ENABLE_EXTERNAL_CUB "Use an external cub" Off)
 option(ENABLE_EXTERNAL_ROCPRIM "Use an external rocPRIM for scans" Off)
 option(ENABLE_TESTS "Build tests" On)
 option(ENABLE_REPRODUCERS "Build issue reproducers" Off)
@@ -188,12 +188,10 @@ if (ENABLE_CUDA)
     cuda)
 endif ()
 
-if (ENABLE_CUDA)
-  if(ENABLE_EXTERNAL_CUB)
-    set(raja_depends
-      ${raja_depends}
-      cub)
-  endif ()
+if (ENABLE_CUDA OR ENABLE_EXTERNAL_CUB)
+  set(raja_depends
+    ${raja_depends}
+    cub)
 endif ()
 
 if (ENABLE_HIP)
@@ -253,13 +251,6 @@ target_include_directories(RAJA
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-if (ENABLE_CUDA)
-  if(NOT ENABLE_EXTERNAL_CUB)
-    target_include_directories(RAJA SYSTEM
-      PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tpl/cub>)
-  endif()
-endif()
 if (ENABLE_HIP)
   if(NOT ENABLE_EXTERNAL_ROCPRIM)
     target_include_directories(RAJA SYSTEM
@@ -269,11 +260,6 @@ if (ENABLE_HIP)
 endif()
 
 install(DIRECTORY include/ DESTINATION include FILES_MATCHING PATTERN *.hpp)
-if (ENABLE_CUDA)
-  if(NOT ENABLE_EXTERNAL_CUB)
-    install(DIRECTORY tpl/cub/ DESTINATION include FILES_MATCHING PATTERN *.cuh)
-  endif()
-endif()
 if (ENABLE_HIP)
   if(NOT ENABLE_EXTERNAL_ROCPRIM)
     install(DIRECTORY tpl/rocPRIM/rocprim/include/ DESTINATION include FILES_MATCHING PATTERN *.hpp)

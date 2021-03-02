@@ -29,20 +29,19 @@ if (ENABLE_TBB)
   endif()
 endif ()
 
-if (ENABLE_CUDA)
-  if(ENABLE_EXTERNAL_CUB)
-    find_package(CUB)
-    if (CUB_FOUND)
-      blt_register_library(
-        NAME cub
-        INCLUDES ${CUB_INCLUDE_DIRS})
-    else()
-      message(WARNING "External CUB not found, using submodule.")
-      set(ENABLE_EXTERNAL_CUB Off)
-    endif()
+if (ENABLE_CUDA OR ENABLE_EXTERNAL_CUB)
+  find_package(CUB)
+  if (CUB_FOUND)
+    blt_register_library(
+      NAME cub
+      INCLUDES ${CUB_INCLUDE_DIRS})
   else()
-    message(STATUS "Using RAJA CUB submodule.")
-  endif ()
+    if (ENABLE_EXTERNAL_CUB)
+      message(FATAL_ERROR "External CUB not found, CUB_DIR=${CUB_DIR}.")
+    else()
+      message(FATAL_ERROR "Cuda toolkit CUB not found, CUDA_TOOLKIT_ROOT_DIR=${CUDA_TOOLKIT_ROOT_DIR}. To use external CUB set ENABLE_EXTERNAL_CUB and CUB_DIR.")
+    endif()
+  endif()
 endif ()
 
 if (ENABLE_HIP)
