@@ -191,12 +191,9 @@ appropriate nvcc options in the ``CMAKE_CUDA_FLAGS_*`` variables.
 
 Also, RAJA relies on the CUB CUDA utilities library for some CUDA functionality.
 The CUB included in the CUDA toolkit is used by default. This ensures
-compatibility with the THRUST CUDA library included in the CUDA toolkit. To
-use a different external CUB install provide the following option to CMake:
-``-DCUB_DIR=<pat/to/cub>``. CUB is included with RAJA as a Git submodule but
-will only be used if you configure RAJA to not use an externally-supplied CUB
-library. To use the CUB submodule provide the following option to CMake:
-``-DENABLE_EXTERNAL_CUB=Off``.
+compatibility with the THRUST CUDA library included in the CUDA toolkit. To use
+an external CUB install provide the following option to CMake:
+``-DENABLE_EXTERNAL_CUB=On -DCUB_DIR=<pat/to/cub>``.
 
 .. note:: It is important to note that the version of Googletest that
           is used in RAJA version v0.11.0 or newer requires CUDA version 
@@ -212,8 +209,6 @@ chain (which can also be used to compile code for NVIDIA GPUs).
 
 .. note:: RAJA requires version 3.5 or newer of the rocm software stack to 
           use the RAJA HIP back-end.
-
-.. note:: RAJA does not support using HIP to target NVIDIA GPUs at this time.
 
 .. note:: When using HIP and targeting NVIDIA GPUs RAJA uses CUB instead of
           ROCPRIM.

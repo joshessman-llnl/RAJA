@@ -137,7 +137,7 @@ and their default settings:
       Variable                 Default
       ======================   ==========================================
       ENABLE_CLANG_CUDA        Off (when on, ENABLE_CUDA must also be on)
-      ENABLE_EXTERNAL_CUB      On (when CUDA enabled)
+      ENABLE_EXTERNAL_CUB      Off (when CUDA enabled)
       CUDA_ARCH                sm_35 (set based on hardware support)
       ======================   ==========================================
 
@@ -146,11 +146,11 @@ and their default settings:
 
       The 'ENABLE_EXTERNAL_CUB' variable is used to choose between an external
       install of the NVIDIA CUB support library and the CUB library included in
-      RAJA as a Git submodule. Starting with CUDA 11, CUB is installed as part
+      CUDA toolkit. Starting with CUDA 11, CUB is installed as part
       of the CUDA toolkit and the NVIDIA THRUST library requires that install of
       CUB. We recommended projects use the CUB included with the CUDA toolkit
       for compatibility with THRUST and applications using THRUST. Since
-      ENABLE_EXTERNAL_CUB is on by default users should not have to set this in
+      ENABLE_EXTERNAL_CUB is off by default users should not have to set this in
       most cases, but users should take note of the CUB install used by RAJA to
       ensure they use the same include directories when configuring their
       application.
