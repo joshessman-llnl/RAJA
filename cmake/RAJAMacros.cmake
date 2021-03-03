@@ -86,9 +86,7 @@ macro(raja_add_plugin_library)
   #PUBLIC
   #$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
   #$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>
-  #$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/tpl/cub>
   #$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/tpl/camp/include>
-  #$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/tpl/rocPRIM/rocprim/include>
   #$<INSTALL_INTERFACE:include>)
 
 endmacro(raja_add_plugin_library)

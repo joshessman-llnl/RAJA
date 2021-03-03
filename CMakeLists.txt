@@ -200,12 +200,10 @@ if (ENABLE_HIP)
     hip)
 endif ()
 
-if (ENABLE_HIP)
-  if(ENABLE_EXTERNAL_ROCPRIM)
-    set(raja_depends
-      ${raja_depends}
-      rocPRIM)
-  endif ()
+if (ENABLE_HIP OR ENABLE_EXTERNAL_ROCPRIM)
+  set(raja_depends
+    ${raja_depends}
+    rocPRIM)
 endif ()
 
 if (ENABLE_TBB)
@@ -251,20 +249,8 @@ target_include_directories(RAJA
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-if (ENABLE_HIP)
-  if(NOT ENABLE_EXTERNAL_ROCPRIM)
-    target_include_directories(RAJA SYSTEM
-      PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tpl/rocPRIM/rocprim/include>)
-  endif()
-endif()
 
 install(DIRECTORY include/ DESTINATION include FILES_MATCHING PATTERN *.hpp)
-if (ENABLE_HIP)
-  if(NOT ENABLE_EXTERNAL_ROCPRIM)
-    install(DIRECTORY tpl/rocPRIM/rocprim/include/ DESTINATION include FILES_MATCHING PATTERN *.hpp)
-  endif()
-endif()
 
 install(FILES
   ${PROJECT_BINARY_DIR}/include/RAJA/config.hpp
