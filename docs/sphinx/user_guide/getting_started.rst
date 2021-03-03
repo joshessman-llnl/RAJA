@@ -44,8 +44,6 @@ dependencies as Git *submodules*. Current RAJA dependencies are:
 
 - `BLT build system <https://github.com/LLNL/blt>`_
 - `Camp compiler agnostic metaprogramming library  <https://github.com/LLNL/camp>`_
-- `CUB CUDA utilities library <https://github.com/NVlabs/cub>`_
-- `rocPRIM HIP parallel primitives library <https://github.com/ROCmSoftwarePlatform/rocPRIM.git>`_
 
 You probably don't need to know much about these other projects to start
 using RAJA. But, if you want to know more about them, click on the links above.
@@ -132,11 +130,13 @@ build using N cores.
 
 .. _build-external-tpl-label:
 
-.. note:: You may use externally-supplied versions of the camp and cub 
-          libraries with RAJA if you wish. To do so, pass the following 
+.. note:: You may use externally-supplied versions of the camp, CUB, and rocPRIM
+          libraries with RAJA if you wish. To do so, pass the following
           options to CMake:
             * External camp: -DEXTERNAL_CAMP_SOURCE_DIR=<camp dir name>
-            * External cub: -DENABLE_EXTERNAL_CUB=On -DCUB_DIR=<cub dir name> 
+            * External CUB: -DENABLE_EXTERNAL_CUB=On -DCUB_DIR=<CUB dir name>
+            * External rocPRIM: -DENABLE_EXTERNAL_ROCPRIM=On
+                                -DROCPRIM_DIR=<rocPRIM dir name>
 
 -----------------
 GPU Builds, etc.
@@ -210,8 +210,13 @@ chain (which can also be used to compile code for NVIDIA GPUs).
 .. note:: RAJA requires version 3.5 or newer of the rocm software stack to 
           use the RAJA HIP back-end.
 
+Also, RAJA relies on the rocPRIM HIP utilities library for some HIP
+functionality. The rocPRIM included in the ROCM install is used by default. To
+use an external rocPRIM install provide the following option to CMake:
+``-DENABLE_EXTERNAL_ROCPRIM=On -DROCPRIM_DIR=<pat/to/rocPRIM>``.
+
 .. note:: When using HIP and targeting NVIDIA GPUs RAJA uses CUB instead of
-          ROCPRIM.
+          rocPRIM.
 
 OpenMP
 ^^^^^^^

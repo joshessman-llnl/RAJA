@@ -121,25 +121,26 @@ and their default settings:
      Variables that control which RAJA programming model back-ends are enabled
      are (names are descriptive of what they enable):
 
-      ======================   ============================================
-      Variable                 Default
-      ======================   ============================================
-      ENABLE_OPENMP            On 
-      ENABLE_TARGET_OPENMP     Off (when on, ENABLE_OPENMP must also be on)
-      ENABLE_TBB               Off 
-      ENABLE_CUDA              Off 
-      ENABLE_HIP               Off 
-      ======================   ============================================
+      =======================   ============================================
+      Variable                  Default
+      =======================   ============================================
+      ENABLE_OPENMP             On
+      ENABLE_TARGET_OPENMP      Off (when on, ENABLE_OPENMP must also be on)
+      ENABLE_TBB                Off
+      ENABLE_CUDA               Off
+      ENABLE_HIP                Off
+      =======================   ============================================
 
      Other compilation options are available via the following:
 
-      ======================   ==========================================
-      Variable                 Default
-      ======================   ==========================================
-      ENABLE_CLANG_CUDA        Off (when on, ENABLE_CUDA must also be on)
-      ENABLE_EXTERNAL_CUB      Off (when CUDA enabled)
-      CUDA_ARCH                sm_35 (set based on hardware support)
-      ======================   ==========================================
+      =======================   ==========================================
+      Variable                  Default
+      =======================   ==========================================
+      ENABLE_CLANG_CUDA         Off (when on, ENABLE_CUDA must also be on)
+      ENABLE_EXTERNAL_CUB       Off (when CUDA enabled)
+      CUDA_ARCH                 sm_35 (set based on hardware support)
+      ENABLE_EXTERNAL_ROCPRIM   Off (when HIP enabled)
+      =======================   ==========================================
 
       Turning the 'ENABLE_CLANG_CUDA' variable on will build CUDA code with
       the native support in the Clang compiler.
@@ -154,6 +155,14 @@ and their default settings:
       most cases, but users should take note of the CUB install used by RAJA to
       ensure they use the same include directories when configuring their
       application.
+
+      The 'ENABLE_EXTERNAL_ROCPRIM' variable is used to choose between an
+      external install of the AMD rocPRIM support library and the rocPRIM
+      library included in ROCM install. We recommended projects use the rocPRIM
+      included with the ROCM install. Since ENABLE_EXTERNAL_ROCPRIM is off by
+      default users should not have to set this in most cases, but users should
+      take note of the rocPRIM install used by RAJA to ensure they use the same
+      include directories when configuring their application.
 
 .. note:: See :ref:`getting-started-label` for more information about
           setting other options for RAJA back-ends.
