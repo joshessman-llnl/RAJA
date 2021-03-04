@@ -14,5 +14,6 @@ mkdir build_${BUILD_SUFFIX} && cd build_${BUILD_SUFFIX}
 
 cmake \
   -DCMAKE_BUILD_TYPE=Debug \
+  -DHIP_ROOT_DIR="/opt/rocm/hip" \
   -C ../host-configs/ubuntu-builds/hip.cmake \
   ..
