@@ -7,13 +7,22 @@
 
 include (FindPackageHandleStandardArgs)
 
+if(DEFINED CUB_DIR)
+  list(APPEND CUB_HINTS ${CUB_DIR}/)
+  list(APPEND CUB_HINTS ${CUB_DIR}/include)
+endif()
+
+if(DEFINED CUDA_TOOLKIT_ROOT_DIR)
+  list(APPEND CUB_HINTS ${CUDA_TOOLKIT_ROOT_DIR}/include)
+  list(APPEND CUB_HINTS ${CUDA_TOOLKIT_ROOT_DIR}/include/thrust/system/cuda/detail)
+endif()
+
 find_path(CUB_INCLUDE_DIRS
   NAMES cub/cub.cuh
   HINTS
-    ${CUB_DIR}/
-    ${CUB_DIR}/include
-    ${CUDA_TOOLKIT_ROOT_DIR}/include
-    ${CUDA_TOOLKIT_ROOT_DIR}/include/thrust/system/cuda/detail)
+    ${CUB_HINTS})
+
+unset(CUB_HINTS)
 
 find_package_handle_standard_args(
   CUB
